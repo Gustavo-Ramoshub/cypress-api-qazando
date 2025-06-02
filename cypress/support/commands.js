@@ -14,7 +14,14 @@
 //
 //
 // -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
+Cypress.Commands.add('buscarDeviceEspecifico', (device_id) => {
+    cy.request({
+            method: 'GET',
+            url: `/objects/${device_id}`,
+            failOnStatusCode: false
+        })
+        .then((response) => { return response})
+})
 //
 //
 // -- This is a dual command --
