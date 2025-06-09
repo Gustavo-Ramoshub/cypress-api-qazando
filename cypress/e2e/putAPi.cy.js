@@ -1,30 +1,11 @@
 /// <reference types="cypress"/>
 
+const body_cadastro = require('../fixtures/deviceSuccess.json')
+const body_update = require('../fixtures/updateSuccess.json')
+
 describe ('Alterar dispositivos', () => {
 
     it('Alterar um dispositivo', () => {
-
-        const body_cadastro = {
-            "name": "Iphone 29",
-            "data": {
-                "year": 2025,
-                "price": 9500,
-                "CPU model": "Intel Core i9",
-                "Hard disk size": "1 TB",
-                "owner": "Ramos LTDA"
-            }
-        }
-
-        const body_update = {
-            "name": "Iphone XREULTRA MAX",
-            "data": {
-                "year": 2025,
-                "price": 11000,
-                "CPU model": "Intel Core i9",
-                "Hard disk size": "1 TB",
-                "owner": "GR Celulares"
-            }
-        }
 
         cy.request({
             method: 'POST',

@@ -22,6 +22,16 @@ Cypress.Commands.add('buscarDeviceEspecifico', (device_id) => {
         })
         .then((response) => { return response})
 })
+
+Cypress.Commands.add('cadastrarDevice', (payload) => {
+    cy.request({
+            method: 'POST',
+            url: '/objects',
+            failOnStatusCode: false,
+            body: payload
+        })
+        .then((response) => { return response})
+})
 //
 //
 // -- This is a dual command --

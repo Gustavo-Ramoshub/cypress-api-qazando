@@ -15,29 +15,22 @@ describe ('Deletar dispositivos', () => {
             }
         }
 
-        cy.request({
-            method: 'POST',
-            url: '/objects',
-            failOnStatusCode: false,
-            body: body
-        }).as('postDeviceResult')
+        cy.cadastrarDevice(body)
+            .then((response_post) => {
+                expect(response_post.status).equal(200)
 
-        // Pegando o result do cadastro para pegar o ID
-        cy.get('@postDeviceResult').then((response_post) => {
-            expect(response_post.status).equal(200)
+                // Fazer Delete
+                cy.request({
+                    method: 'DELETE',
+                    url: `/objects/${response_post.body.id}`,
+                    failOnStatusCode: false,
+                }).as('deleteDeviceResult')
 
-            // Fazer Delete
-            cy.request({
-                method: 'DELETE',
-                url: `/objects/${response_post.body.id}`,
-                failOnStatusCode: false,
-            }).as('deleteDeviceResult')
-
-            // Validações do delete
-            cy.get('@deleteDeviceResult').then((response_del) => {
-                expect(response_del.status).equal(200)
-                expect(response_del.body.message)
-                    .equal(`Object with id = ${response_post.body.id} has been deleted.`)
+                // Validações do delete
+                cy.get('@deleteDeviceResult').then((response_del) => {
+                    expect(response_del.status).equal(200)
+                    expect(response_del.body.message)
+                        .equal(`Object with id = ${response_post.body.id} has been deleted.`)
             })
         })
     })
